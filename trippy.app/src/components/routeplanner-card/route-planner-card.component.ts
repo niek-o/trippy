@@ -16,10 +16,12 @@ import { RoutePlannerTextInput } from './route-planner-text-input/route-planner-
 export class RoutePlannerCard {
   readonly stops = signal<TripStop[]>([
     {
-      searchQuery: ''
+      searchQuery: '',
+      colour: "--p-green-500"
     },
     {
-      searchQuery: ''
+      searchQuery: '',
+      colour: "--p-red-500"
     }
   ]);
 
@@ -32,7 +34,7 @@ export class RoutePlannerCard {
   addStop(index: number) {
     this.stops.update(stops => {
       const updated = [...stops];
-      updated.splice(index, 0, { searchQuery: '' });
+      updated.splice(index, 0, { searchQuery: '', colour: '--p-blue-500' });
       return updated;
     });
   }
