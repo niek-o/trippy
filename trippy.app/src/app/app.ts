@@ -12,7 +12,7 @@ import { TrippyMap } from '../components/trippymap/trippy-map.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, FormsModule, TrippyMap, SkeletonModule],
+  imports: [RouterOutlet, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, FormsModule, TrippyMap, SkeletonModule, RoutePlannerCard],
   templateUrl: './app.html'
 })
 export class App implements OnInit {

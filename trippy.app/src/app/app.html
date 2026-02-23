@@ -1,5 +1,5 @@
 <main>
-  <routeplanner (planRoute)="addRouteToMap()" />
+  <routeplannercard (planRoute)="addRouteToMap()" />
 
   @defer (when startCoordinatesReady()) {
     <trippy-map [startCoordinates]="startCoordinates() ?? [0,0]" />

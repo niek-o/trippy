@@ -1,0 +1,21 @@
+<p-input-group>
+
+  <p-inputgroup-addon>
+    @if (index() === 0) {
+      <i class="pi pi-car"></i>
+    } @else if (index() === count() - 1) {
+      <i class="pi pi-flag"></i>
+    } @else {
+      <i class="pi pi-map-marker"></i>
+    }
+  </p-inputgroup-addon>
+
+  <input type="text" pInputText [(ngModel)]="value" />
+
+  @if (index() !== 0 && index() !== count() - 1) {
+    <p-inputgroup-addon>
+      <p-button icon="pi pi-trash" severity="secondary" [rounded]="true" [text]="true"
+                (onClick)="removeStop.emit(index())"></p-button>
+    </p-inputgroup-addon>
+  }
+</p-input-group>

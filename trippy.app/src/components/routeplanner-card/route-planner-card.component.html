@@ -9,48 +9,22 @@
     </ng-template>
 
     @for (stop of stops(); track $index) {
-      <p-input-group>
+      <app-route-planner-text-input
+        [index]="$index"
+        [count]="stops().length"
+        [(value)]="stop.searchQuery"
+        (valueChange)="updateStop($index, $event)"
+        (removeStop)="removeStop($event)" />
 
-        <p-inputgroup-addon>
-          @if ($index === 0) {
-            <i class="pi pi-car"></i>
-          } @else if ($index === stops().length - 1) {
-            <i class="pi pi-flag"></i>
-          } @else {
-            <i class="pi pi-map-marker"></i>
-          }
-        </p-inputgroup-addon>
+      <app-route-planner-add-stop-bar
+        [index]="$index"
+        [count]="stops().length"
 
-        <input type="text" pInputText [(ngModel)]="stop.searchQuery" />
-
-        @if ($index !== 0 && $index !== stops().length - 1) {
-          <p-inputgroup-addon>
-            <p-button icon="pi pi-trash" severity="secondary" [rounded]="true" [text]="true"
-                      (onClick)="removeStop($index)"></p-button>
-          </p-inputgroup-addon>
-        }
-      </p-input-group>
-
-
-      <div class="flex row w-full">
-        @if ($index !== stops().length - 1) {
-          <div class="w-12 flex justify-center">
-            <div class="h-full border-l-2 border-dotted border-surface-400 self-stretch"></div>
-          </div>
-
-          <div
-            class="flex flex-row justify-center place-items-center gap-2 opacity-0 hover:opacity-100 w-full transition-opacity duration-150"
-            (click)="addStop($index +1)">
-            <span class="h-1 bg-surface-200 rounded-4xl w-full"></span>
-            <i class="pi pi-plus-circle text-surface-400"></i>
-            <span class="h-1 bg-surface-200 rounded-4xl w-full"></span>
-          </div>
-        }
-      </div>
+        (addStop)="addStop($event)" />
     }
 
     <ng-template #footer>
-      <p-button (onClick)="planRoute.emit()" label="Plan trip" fluid />
+      <p-button (click)="planRoute.emit()" label="Plan trip" fluid />
     </ng-template>
   </p-card>
 </div>
