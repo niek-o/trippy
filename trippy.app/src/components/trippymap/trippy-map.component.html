@@ -1,0 +1,7 @@
+<mgl-map
+  [mapStyle]="environment.maptilerUrl"
+  [zoom]="[10]"
+  [center]="startCoordinates()"
+  class="w-screen h-screen"
+  (mapLoad)="onMapLoad($event)"
+/>

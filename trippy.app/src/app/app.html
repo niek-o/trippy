@@ -1,0 +1,11 @@
+<main>
+  <routeplanner (planRoute)="addRouteToMap()" />
+
+  @defer (when startCoordinatesReady()) {
+    <trippy-map [startCoordinates]="startCoordinates() ?? [0,0]" />
+  } @placeholder {
+    <p-skeleton class="w-full h-full" />
+  }
+</main>
+
+<router-outlet />
