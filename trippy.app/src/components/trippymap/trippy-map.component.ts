@@ -65,8 +65,8 @@ export class TrippyMap {
     }
 
     return [
-      parseFloat(json[0].lon),
-      parseFloat(json[0].lat)
+      Number.parseFloat(json[0].lon),
+      Number.parseFloat(json[0].lat)
     ];
   }
 

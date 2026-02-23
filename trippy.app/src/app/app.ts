@@ -30,7 +30,7 @@ export class App implements OnInit {
       const position = await new Promise<GeolocationCoordinates>((resolve, reject) =>
         navigator.geolocation.getCurrentPosition(
           (pos) => resolve(pos.coords),
-          (err) => reject(err)
+          (err) => reject(new Error(err.message))
         )
       );
 
