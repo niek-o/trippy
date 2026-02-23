@@ -14,7 +14,7 @@ import { RoutePlannerTextInput } from './route-planner-text-input/route-planner-
   templateUrl: './route-planner-card.component.html'
 })
 export class RoutePlannerCard {
-  readonly stops = signal([
+  readonly stops = signal<TripStop[]>([
     {
       searchQuery: ''
     },
