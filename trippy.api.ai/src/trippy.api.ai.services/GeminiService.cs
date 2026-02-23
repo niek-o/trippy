@@ -19,7 +19,7 @@ public class GeminiService(IOptions<GeminiConfiguration> options) : IGeminiServi
 
         var prompt = string.Format("""
                                    You are planning a roadtrip with the attached information.
-                                   Include start and end points in the final response.
+                                   Exclude start and end points from the final response.
 
                                    Trip data:
                                    {0}
