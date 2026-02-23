@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>d20b09fc-49cd-4456-b3aa-26fe231f521b</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3"/>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.12.46"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\trippy.api.ai.services\trippy.api.ai.services.csproj" />
+      <ProjectReference Include="..\trippy.api.ai.webapi\trippy.api.ai.webapi.csproj" />
+    </ItemGroup>
+
+</Project>
