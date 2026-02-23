@@ -1,6 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import { MapComponent } from '@maplibre/ngx-maplibre-gl';
-import maplibregl, { LngLatLike, Map } from 'maplibre-gl';
+import maplibregl, { LngLatLike, Map, Marker } from 'maplibre-gl';
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -12,13 +12,17 @@ export class TrippyMap {
   startCoordinates = input<LngLatLike>();
 
   protected readonly map = signal<Map>(null!);
+  protected readonly markers = signal<Marker[]>([]);
 
   async addRoute(stops: TripStop[]) {
     try {
+      this.markers().forEach((marker) => {
+        marker.remove();
+      });
       this.map().removeSource('route');
       this.map().removeLayer('route-line');
     } catch (e) {
-      console.warn("Failed to remove existing routes")
+      console.warn('Failed to remove existing routes and markers');
     }
 
     const stopCoordinates = await this.getCoordinatesForStops(stops);
@@ -28,6 +32,15 @@ export class TrippyMap {
     }
 
     const route = await this.getRouteForCoordinates(stopCoordinates);
+
+    stopCoordinates.forEach((stop, index) => {
+      const marker = new Marker({
+        color: getComputedStyle(document.documentElement).getPropertyValue(stops[index].colour),
+        scale: 0.7
+      }).setLngLat(stop).addTo(this.map());
+
+      this.markers().push(marker);
+    });
 
     this.map().addSource('route', { type: 'geojson', data: route });
 
