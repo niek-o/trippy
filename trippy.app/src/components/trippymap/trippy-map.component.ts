@@ -3,10 +3,6 @@ import { MapComponent } from '@maplibre/ngx-maplibre-gl';
 import maplibregl, { LngLatLike, Map } from 'maplibre-gl';
 import { environment } from '../../environments/environment';
 
-interface tripStop {
-  searchQuery: string;
-}
-
 @Component({
   selector: 'trippy-map',
   imports: [MapComponent],
@@ -17,11 +13,12 @@ export class TrippyMap {
 
   protected readonly map = signal<Map>(null!);
 
-  async addRoute(stops: tripStop[]) {
+  async addRoute(stops: TripStop[]) {
     try {
       this.map().removeSource('route');
       this.map().removeLayer('route-line');
     } catch (e) {
+      console.warn("Failed to remove existing routes")
     }
 
     const stopCoordinates = await this.getCoordinatesForStops(stops);
@@ -65,8 +62,8 @@ export class TrippyMap {
     }
 
     return [
-      parseFloat(json[0].lon),
-      parseFloat(json[0].lat)
+      Number.parseFloat(json[0].lon),
+      Number.parseFloat(json[0].lat)
     ];
   }
 
@@ -78,7 +75,7 @@ export class TrippyMap {
     return json.routes[0].geometry;
   }
 
-  private async getCoordinatesForStops(stops: tripStop[]): Promise<LngLatLike[]> {
+  private async getCoordinatesForStops(stops: TripStop[]): Promise<LngLatLike[]> {
     return await Promise.all(stops
       .filter(stop => stop.searchQuery !== '')
       .map(async (stop) => {
