@@ -1,0 +1,6 @@
+﻿<Solution>
+  <Project Path="src\trippy.api.ai.application\trippy.api.ai.application.csproj" />
+  <Project Path="src\trippy.api.ai.contracts\trippy.api.ai.contracts.csproj" Type="Classic C#" />
+  <Project Path="src\trippy.api.ai.services\trippy.api.ai.services.csproj" Type="Classic C#" />
+  <Project Path="src\trippy.api.ai.webapi\trippy.api.ai.webapi.csproj" Type="Classic C#" />
+</Solution>
