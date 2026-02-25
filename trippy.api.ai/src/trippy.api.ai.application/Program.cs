@@ -1,6 +1,6 @@
 using Scalar.AspNetCore;
 using trippy.api.ai.services.DependencyInjection;
-using trippy.api.ai.webapi.endpoints;
+using trippy.api.ai.webapi.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddTrippyServices(builder.Configuration);
+builder.Services.RegisterTrippyWebApiHandlers();
 
 var app = builder.Build();
 
@@ -20,6 +21,6 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.MapRouteSuggestionEndpoints();
+app.RegisterTrippyWebApiAppServices();
 
 await app.RunAsync();

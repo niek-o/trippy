@@ -9,9 +9,10 @@ public static class RouteSuggestionEndpoints
     public static void MapRouteSuggestionEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
         var group = routeBuilder.MapGroup("/api/v1.0");
-        
+
         group.MapPost("/suggest-route",
-            async ([FromServices] IGeminiService service, RouteSuggestionsRequestDto requestBody) =>
-            await service.AskGemini(requestBody));
+            async ([FromServices] IGeminiService service, RouteSuggestionsRequestDto requestBody,
+                    CancellationToken cancellationToken) =>
+                await service.AskGemini(requestBody, cancellationToken));
     }
 }
