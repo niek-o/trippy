@@ -1,4 +1,4 @@
-import { Component, computed, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { LngLatLike } from 'maplibre-gl';
@@ -7,8 +7,12 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
-import { RoutePlannerCard } from '../components/routeplanner-card/route-planner-card.component';
-import { TrippyMap } from '../components/trippymap/trippy-map.component';
+import { RoutePlannerCard } from '../components/route-planner-card/route-planner-card.component';
+import { TrippyMap } from '../components/trippy-map/trippy-map.component';
+import { addStopEvent } from '../utils/stop-manager/events/add-stop.event';
+import { removeStopEvent } from '../utils/stop-manager/events/remove-stop.event';
+import { updateStopEvent } from '../utils/stop-manager/events/update-stop.event';
+import { StopManager } from '../utils/stop-manager/stop-manager';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +25,10 @@ export class App implements OnInit {
 
     this.startCoordinates.set(coords);
   }
+
+  private stopManager = inject(StopManager);
+
+  readonly stops = this.stopManager.stops;
 
   @ViewChild(TrippyMap) map: TrippyMap;
   @ViewChild(RoutePlannerCard) routePlanner: RoutePlannerCard;
@@ -45,6 +53,18 @@ export class App implements OnInit {
   protected readonly startCoordinatesReady = computed(() => this.startCoordinates() !== null);
 
   addRouteToMap() {
-    this.map.addRoute(this.routePlanner.stops());
+    this.map.addRoute(this.stops());
+  }
+
+  addStop(event: addStopEvent) {
+    this.stopManager.addStop(event);
+  }
+
+  removeStop(event: removeStopEvent) {
+    this.stopManager.removeStop(event);
+  }
+
+  updateStop(event: updateStopEvent) {
+    this.stopManager.updateStop(event);
   }
 }

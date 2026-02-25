@@ -1,10 +1,14 @@
-import { Component, EventEmitter, Output, signal } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { addStopEvent } from '../../utils/stop-manager/events/add-stop.event';
+import { removeStopEvent } from '../../utils/stop-manager/events/remove-stop.event';
+import { updateStopEvent } from '../../utils/stop-manager/events/update-stop.event';
+import { TripStopModel } from '../../utils/stop-manager/trip-stop.model';
 import { RoutePlannerAddStopBar } from './route-planner-add-stop-bar/route-planner-add-stop-bar';
 import { RoutePlannerTextInput } from './route-planner-text-input/route-planner-text-input';
 
@@ -14,34 +18,10 @@ import { RoutePlannerTextInput } from './route-planner-text-input/route-planner-
   templateUrl: './route-planner-card.component.html'
 })
 export class RoutePlannerCard {
-  readonly stops = signal<TripStop[]>([
-    {
-      searchQuery: '',
-      colour: "--p-green-500"
-    },
-    {
-      searchQuery: '',
-      colour: "--p-red-500"
-    }
-  ]);
-
-  updateStop(index: number, value: string) {
-    this.stops.update(stops =>
-      stops.map((stop, i) => i === index ? { ...stop, searchQuery: value } : stop)
-    );
-  }
-
-  addStop(index: number) {
-    this.stops.update(stops => {
-      const updated = [...stops];
-      updated.splice(index, 0, { searchQuery: '', colour: '--p-blue-500' });
-      return updated;
-    });
-  }
-
-  removeStop(index: number) {
-    this.stops.update(stops => stops.filter((_, i) => i !== index));
-  }
+  readonly stops = input.required<TripStopModel[]>();
 
   @Output() planRoute: EventEmitter<void> = new EventEmitter();
+  @Output() updateStop: EventEmitter<updateStopEvent> = new EventEmitter();
+  @Output() addStop: EventEmitter<addStopEvent> = new EventEmitter();
+  @Output() removeStop: EventEmitter<removeStopEvent> = new EventEmitter();
 }

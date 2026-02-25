@@ -1,5 +1,10 @@
 <main>
-  <routeplannercard (planRoute)="addRouteToMap()" />
+  <routeplannercard
+    [stops]="stops()"
+    (planRoute)="addRouteToMap()"
+    (addStop)="addStop($event)"
+    (removeStop)="removeStop($event)"
+    (updateStop)="updateStop($event)" />
 
   @defer (when startCoordinatesReady()) {
     <trippy-map [startCoordinates]="startCoordinates() ?? [0,0]" />
