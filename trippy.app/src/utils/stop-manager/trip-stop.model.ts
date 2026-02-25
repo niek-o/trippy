@@ -1,4 +1,4 @@
-interface TripStop {
+export interface TripStopModel {
   searchQuery: string;
   colour: string;
 }

@@ -2,6 +2,7 @@ import { Component, input, signal } from '@angular/core';
 import { MapComponent } from '@maplibre/ngx-maplibre-gl';
 import maplibregl, { LngLatLike, Map, Marker } from 'maplibre-gl';
 import { environment } from '../../environments/environment';
+import { TripStopModel } from '../../utils/stop-manager/trip-stop.model';
 
 @Component({
   selector: 'trippy-map',
@@ -14,7 +15,7 @@ export class TrippyMap {
   protected readonly map = signal<Map>(null!);
   protected readonly markers = signal<Marker[]>([]);
 
-  async addRoute(stops: TripStop[]) {
+  async addRoute(stops: TripStopModel[]) {
     try {
       this.markers().forEach((marker) => {
         marker.remove();
@@ -88,7 +89,7 @@ export class TrippyMap {
     return json.routes[0].geometry;
   }
 
-  private async getCoordinatesForStops(stops: TripStop[]): Promise<LngLatLike[]> {
+  private async getCoordinatesForStops(stops: TripStopModel[]): Promise<LngLatLike[]> {
     return await Promise.all(stops
       .filter(stop => stop.searchQuery !== '')
       .map(async (stop) => {

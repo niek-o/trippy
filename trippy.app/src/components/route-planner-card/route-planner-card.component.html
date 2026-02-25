@@ -13,14 +13,14 @@
         [index]="$index"
         [count]="stops().length"
         [(value)]="stop.searchQuery"
-        (valueChange)="updateStop($index, $event)"
-        (removeStop)="removeStop($event)" />
+        (valueChange)="updateStop.emit({index: $index, value: $event})"
+        (removeStop)="removeStop.emit({index: $index})" />
 
       <app-route-planner-add-stop-bar
         [index]="$index"
         [count]="stops().length"
 
-        (addStop)="addStop($event)" />
+        (addStop)="addStop.emit({index: $index + 1})" />
     }
 
     <ng-template #footer>
