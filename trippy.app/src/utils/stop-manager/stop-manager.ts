@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
-import { addStopEvent } from './events/add-stop.event';
-import { removeStopEvent } from './events/remove-stop.event';
-import { updateStopEvent } from './events/update-stop.event';
+import { AddStopEvent } from './events/add-stop.event';
+import { RemoveStopEvent } from './events/remove-stop.event';
+import { UpdateStopEvent } from './events/update-stop.event';
 import { TripStopModel } from './trip-stop.model';
 
 @Injectable({ providedIn: 'root' })
@@ -17,13 +17,13 @@ export class StopManager {
     }
   ]);
 
-  public updateStop(event: updateStopEvent): void {
+  public updateStop(event: UpdateStopEvent): void {
     this.stops.update(stops =>
       stops.map((stop, i) => i === event.index ? { ...stop, searchQuery: event.value } : stop)
     );
   }
 
-  public addStop(event: addStopEvent): void {
+  public addStop(event: AddStopEvent): void {
     this.stops.update(stops => {
       const updated = [...stops];
       updated.splice(event.index, 0, { searchQuery: '', colour: '--p-blue-500' });
@@ -31,7 +31,7 @@ export class StopManager {
     });
   }
 
-  public removeStop(event: removeStopEvent): void {
+  public removeStop(event: RemoveStopEvent): void {
     this.stops.update(stops => {
       const updated = [...stops];
       updated.splice(event.index, 1);

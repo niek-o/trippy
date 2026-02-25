@@ -9,9 +9,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RoutePlannerCard } from '../components/route-planner-card/route-planner-card.component';
 import { TrippyMap } from '../components/trippy-map/trippy-map.component';
-import { addStopEvent } from '../utils/stop-manager/events/add-stop.event';
-import { removeStopEvent } from '../utils/stop-manager/events/remove-stop.event';
-import { updateStopEvent } from '../utils/stop-manager/events/update-stop.event';
+import { AddStopEvent } from '../utils/stop-manager/events/add-stop.event';
+import { RemoveStopEvent } from '../utils/stop-manager/events/remove-stop.event';
+import { UpdateStopEvent } from '../utils/stop-manager/events/update-stop.event';
 import { StopManager } from '../utils/stop-manager/stop-manager';
 
 @Component({
@@ -26,7 +26,7 @@ export class App implements OnInit {
     this.startCoordinates.set(coords);
   }
 
-  private stopManager = inject(StopManager);
+  private readonly stopManager = inject(StopManager);
 
   readonly stops = this.stopManager.stops;
 
@@ -56,15 +56,15 @@ export class App implements OnInit {
     this.map.addRoute(this.stops());
   }
 
-  addStop(event: addStopEvent) {
+  addStop(event: AddStopEvent) {
     this.stopManager.addStop(event);
   }
 
-  removeStop(event: removeStopEvent) {
+  removeStop(event: RemoveStopEvent) {
     this.stopManager.removeStop(event);
   }
 
-  updateStop(event: updateStopEvent) {
+  updateStop(event: UpdateStopEvent) {
     this.stopManager.updateStop(event);
   }
 }

@@ -1,3 +1,3 @@
-export interface addStopEvent {
+export interface AddStopEvent {
   index: number
 }

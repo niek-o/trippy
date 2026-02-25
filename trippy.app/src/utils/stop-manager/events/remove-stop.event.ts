@@ -1,3 +1,3 @@
-export interface removeStopEvent {
+export interface RemoveStopEvent {
   index: number
 }
