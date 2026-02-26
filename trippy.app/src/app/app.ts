@@ -3,10 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { LngLatLike } from 'maplibre-gl';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { SkeletonModule } from 'primeng/skeleton';
+import { ChatModal } from '../components/chat-modal/chat-modal';
 import { RoutePlannerCard } from '../components/route-planner-card/route-planner-card.component';
 import { TrippyMap } from '../components/trippy-map/trippy-map.component';
 import { AddStopEvent } from '../utils/stop-manager/events/add-stop.event';
@@ -16,7 +18,7 @@ import { StopManager } from '../utils/stop-manager/stop-manager';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, FormsModule, TrippyMap, SkeletonModule, RoutePlannerCard],
+  imports: [RouterOutlet, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, FormsModule, TrippyMap, SkeletonModule, RoutePlannerCard, DialogModule, ChatModal],
   templateUrl: './app.html'
 })
 export class App implements OnInit {
@@ -66,5 +68,11 @@ export class App implements OnInit {
 
   updateStop(event: UpdateStopEvent) {
     this.stopManager.updateStop(event);
+  }
+
+  isChatModalVisible: boolean = false;
+
+  openChatModal() {
+    this.isChatModalVisible = true;
   }
 }

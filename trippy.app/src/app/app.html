@@ -6,6 +6,12 @@
     (removeStop)="removeStop($event)"
     (updateStop)="updateStop($event)" />
 
+  <p-button rounded icon="pi pi-sparkles"
+            class="scale-150 absolute bottom-0 right-0 mb-10 mr-10 z-10 drop-shadow-md  drop-shadow-surface-700"
+            (onClick)="openChatModal()" />
+
+  <chat-modal [(visible)]="isChatModalVisible"></chat-modal>
+
   @defer (when startCoordinatesReady()) {
     <trippy-map [startCoordinates]="startCoordinates() ?? [0,0]" />
   } @placeholder {
