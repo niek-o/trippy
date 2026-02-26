@@ -1,8 +1,31 @@
-<p-dialog header="Chat window" [modal]="true" [visible]="visible"
+<p-dialog header="Chat window" [modal]="true" [visible]="visible()"
           (visibleChange)="visibleChange.emit($event)" class="z-20" [style]="{width: '70rem'}">
   <div class="flex flex-col gap-2">
-    @for (message of chatMessages(); track $index) {
-      <chat-modal-message [chatMessage]="message" [isLastInGroup]="isLastInGroup($index)" />
+    @for (message of chatManager.visibleMessages(); track $index) {
+      <chat-modal-message [chatMessage]="message" [isLastInGroup]="chatManager.isLastInGroup($index)" />
     }
   </div>
+  <ng-template #footer>
+    @if (chatManager.awaitingInput()) {
+      @if (chatManager.chatMessages()[chatManager.currentIndex()].type === 'Tags') {
+        <div class="flex flex-wrap gap-2 max-w-lg">
+          @for (tag of chatManager.wouldLikeToSeeTags; track $index) {
+            <div (click)="chatManager.toggleTag(tag.text)" class="cursor-pointer">
+              <chat-modal-preference-tag
+                [text]="tag.text"
+                [emoji]="tag.emoji"
+                [image]="tag.image"
+                [active]="chatManager.isTagSelected(tag.text)"
+              />
+            </div>
+          }
+        </div>
+        <p-button icon="pi pi-send" (onClick)="chatManager.submitUserInput()" />
+      } @else {
+        <input pInputText fluid [(ngModel)]="chatManager.userInput" (submit)="chatManager.submitUserInput()"
+               placeholder="Write a message..." />
+        <p-button icon="pi pi-send" (onClick)="chatManager.submitUserInput()" />
+      }
+    }
+  </ng-template>
 </p-dialog>

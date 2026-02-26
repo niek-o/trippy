@@ -1,21 +1,21 @@
 @if (chatMessage().sender === "Trippy") {
   <div class="flex flex-row place-items-center gap-2">
     <img alt="trippy-logo" src="/img/mappy.webp" class="w-auto h-12" [class.invisible]="!isLastInGroup()" />
-    <span class="w-fit border-2 border-surface-200 bg-surface-100 rounded-2xl p-2">
+    <span class="w-fit border-2 border-surface-200 bg-surface-100 rounded-lg p-2">
       <p>{{ chatMessage().message }}</p>
     </span>
   </div>
 } @else {
   @if (chatMessage().type === "String") {
     <div class="flex flex-row justify-end place-items-center gap-2 ">
-    <span class="w-fit border-2 border-primary-400 bg-primary-300 rounded-2xl p-2">
+    <span class="w-fit border-2 border-primary-400 bg-primary-300 rounded-lg p-2">
       <p>{{ chatMessage().message }}</p>
     </span>
     </div>
   } @else if (chatMessage().type === "Tags") {
     <div class="flex flex-row justify-end place-items-center">
       <div class="flex flex-wrap gap-2 max-w-lg">
-        @for (preferenceTag of wouldLikeToSeeTags; track $index) {
+        @for (preferenceTag of chatManager.wouldLikeToSeeTags; track $index) {
           <chat-modal-preference-tag text="{{ preferenceTag.text }}"
                                      emoji="{{ preferenceTag.emoji }}"
                                      image="{{preferenceTag.image}}"
