@@ -20,7 +20,7 @@ export class ChatModal {
   isLastInGroup(index: number): boolean {
     const current = this.chatMessages()[index];
     const next = this.chatMessages()[index + 1];
-    return current.sender === 'Trippy' && (!next || next.sender !== 'Trippy');
+    return current.sender === 'Trippy' && next?.sender !== 'Trippy';
   }
 
   readonly request = signal<RouteSuggestionRequestModel>({
