@@ -1,0 +1,30 @@
+@if (active()) {
+  <p-tag
+    [style]="{ border: '2px solid var(--p-primary-300)', background: 'var(--p-primary-200)', color: 'var(--p-text)' }">
+    <div class="flex items-center gap-2 px-1">
+      @if (emoji()) {
+        <span>{{ emoji() }}</span>
+      } @else if (image()) {
+        <img alt="Flag"
+             src="{{ image() }}"
+             class="w-auto h-4" />
+      }
+      <span>{{ text() }}</span>
+    </div>
+  </p-tag>
+} @else {
+  <p-tag
+    [style]="{ border: '2px solid var(--p-surface-200)', background: 'transparent', color: 'var(--p-text)' }">
+    <div class="flex items-center gap-2 px-1">
+      @if (emoji()) {
+        <span>{{ emoji() }}</span>
+      } @else if (image()) {
+        <img alt="Flag"
+             src="{{ image() }}"
+             class="w-auto h-4" />
+      }
+      <span>{{ text() }}</span>
+    </div>
+  </p-tag>
+}
+
