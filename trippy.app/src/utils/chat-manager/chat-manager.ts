@@ -60,10 +60,10 @@ export class ChatManager {
         this.request.update(r => ({ ...r, wouldLikeToSee: tags }));
         break;
       case 8:
-        this.request.update(r => ({ ...r, amountOfDays: parseInt(this.userInput()) }));
+        this.request.update(r => ({ ...r, amountOfDays: Number.parseInt(this.userInput()) }));
         break;
       case 10:
-        this.request.update(r => ({ ...r, drivingTimePerDayInHours: parseInt(this.userInput()) }));
+        this.request.update(r => ({ ...r, drivingTimePerDayInHours: Number.parseInt(this.userInput()) }));
         break;
     }
 
